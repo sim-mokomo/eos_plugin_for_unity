@@ -139,6 +139,9 @@ namespace PlayEveryWare.EpicOnlineServices
         //-------------------------------------------------------------------------
         public partial class EOSSingleton
         {
+            static private bool s_isLoggedIn;
+            static private bool s_enableCollectingPlayerMetrics = false;
+            static private string s_displayUserName = "User";
             static private EpicAccountId s_localUserId;
             static private ProductUserId s_localProductUserId = null;
             static private AuthScopeFlags s_authScopeFlags;
@@ -152,6 +155,27 @@ namespace PlayEveryWare.EpicOnlineServices
 
             // Need to keep track for shutting down EOS after a successful platform initialization
             static private bool s_hasInitializedPlatform = false;
+
+            public bool IsLoggedIn() => s_isLoggedIn;
+
+            public void SetIsLoggedIn(bool isLoggedIn)
+            {
+                s_isLoggedIn = isLoggedIn;
+            }
+
+            public bool EnableCollectPlayerMetrics() => s_enableCollectingPlayerMetrics;
+
+            public void SetEnableCollectPlayerMetrics(bool enableCollect)
+            {
+                s_enableCollectingPlayerMetrics = enableCollect;
+            }
+
+            public string GetDisplayUserName() => s_displayUserName;
+
+            public void SetDisplayUserName(string displayName)
+            {
+                s_displayUserName = displayName;
+            }
 
             //-------------------------------------------------------------------------
             /// <summary>
@@ -1526,7 +1550,8 @@ namespace PlayEveryWare.EpicOnlineServices
         /// </summary>
         void Update()
         {
-            EOSManager.Instance.Tick();
+            // NOTE: 更新タイミングは外部から制御したいのでコメントアウト
+            // EOSManager.Instance.Tick();
         }
 
         //-------------------------------------------------------------------------
@@ -1537,7 +1562,8 @@ namespace PlayEveryWare.EpicOnlineServices
         /// </summary>
         private void OnApplicationQuit()
         {
-            EOSManager.Instance.OnShutdown();
+            // NOTE: リソース開放処理の実行順序を制御したいので、こちらはコメントアウト。
+            // EOSManager.Instance.OnShutdown();
         }
 
         //-------------------------------------------------------------------------
