@@ -1526,7 +1526,8 @@ namespace PlayEveryWare.EpicOnlineServices
         /// </summary>
         void Update()
         {
-            EOSManager.Instance.Tick();
+            // NOTE: 更新タイミングは外部から制御したいのでコメントアウト
+            // EOSManager.Instance.Tick();
         }
 
         //-------------------------------------------------------------------------
@@ -1537,7 +1538,8 @@ namespace PlayEveryWare.EpicOnlineServices
         /// </summary>
         private void OnApplicationQuit()
         {
-            EOSManager.Instance.OnShutdown();
+            // NOTE: リソース開放処理の実行順序を制御したいので、こちらはコメントアウト。
+            // EOSManager.Instance.OnShutdown();
         }
 
         //-------------------------------------------------------------------------
